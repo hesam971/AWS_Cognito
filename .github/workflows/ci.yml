@@ -1,4 +1,4 @@
-name: Deploy React App
+name: Build and deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,11 +14,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./Test_Project
 
       - name: Build and deploy
-        run: |
-          npm run build
-          npm run deploy
+        run: npm run build
+        working-directory: ./Test_Project
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
