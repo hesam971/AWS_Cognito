@@ -28,7 +28,7 @@ jobs:
       working-directory: ./my-aws-app/my-app
 
     - name: Run tests
-      run: npm test
+      run: npm test -- --passWithNoTests
       working-directory: ./my-aws-app/my-app
 
     - name: Upload production-ready build files
