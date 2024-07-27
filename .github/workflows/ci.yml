@@ -35,8 +35,8 @@ jobs:
       env:
         BROWSER: none # This ensures that the server does not open a browser
 
-    - name: Wait for server to be ready
-      run: npx wait-on http://localhost:3000
+    - name: Sleep to allow server to start
+      run: sleep 10
 
     - name: Run tests
       run: npx playwright test
