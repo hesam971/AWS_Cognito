@@ -23,15 +23,12 @@ jobs:
       run: npm install
       working-directory: ./my-aws-app/my-app
 
-    - name: Install Playwright browsers
-      run: npx playwright install --with-deps
-
-    - name: Run tests
-      run: npx playwright test --pass-with-no-tests
-      working-directory: ./my-aws-app/my-app/tests
-
     - name: Build the app
       run: npm run build
+      working-directory: ./my-aws-app/my-app
+
+    - name: Run tests
+      run: npm test -- --passWithNoTests
       working-directory: ./my-aws-app/my-app
 
     - name: Upload production-ready build files
@@ -39,3 +36,4 @@ jobs:
       with:
         name: production-files
         path: ./my-aws-app/my-app/build
+v
