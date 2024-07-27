@@ -23,10 +23,6 @@ jobs:
       run: npm install
       working-directory: ./my-aws-app/my-app
 
-    - name: Build the app
-      run: npm run build
-      working-directory: ./my-aws-app/my-app
-
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
 
@@ -44,6 +40,10 @@ jobs:
 
     - name: Stop server
       run: kill $(lsof -t -i:3000)
+
+    - name: Build the app
+      run: npm run build
+      working-directory: ./my-aws-app/my-app
 
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v2
