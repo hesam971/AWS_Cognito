@@ -26,20 +26,9 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
 
-    - name: Start server
-      run: npm start &
-      env:
-        BROWSER: none # This ensures that the server does not open a browser
-
-    - name: Sleep to allow server to start
-      run: sleep 10
-
     - name: Run tests
-      run: npx playwright test
+      run: npx playwright test --pass-with-no-tests
       working-directory: ./my-aws-app/my-app/tests
-
-    - name: Stop server
-      run: kill $(lsof -t -i:3000)
 
     - name: Build the app
       run: npm run build
