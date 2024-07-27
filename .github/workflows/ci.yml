@@ -1,45 +1,38 @@
-name: Node.js CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./my-aws-app/my-app
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+    - name: Build the app
+      run: npm run build
+      working-directory: ./my-aws-app/my-app
 
-      - name: Run Playwright tests
-        run: npx playwright test
+    - name: Run tests
+      run: npx playwright test
+      working-directory: ./my-aws-app/my-app/tests
 
-      - name: Run build
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        if: success()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-
+    - name: Upload production-ready build files
+      uses: actions/upload-artifact@v2
+      with:
+        name: production-files
+        path: ./my-aws-app/my-app/build
