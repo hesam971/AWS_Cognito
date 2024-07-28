@@ -17,6 +17,7 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: npm install
+        working-directory: ./my-aws-app/my-app
         
       - name: Install Playwright
         run: npx playwright install --with-deps
