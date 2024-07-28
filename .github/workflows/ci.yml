@@ -27,6 +27,10 @@ jobs:
       run: npm run build
       working-directory: ./my-aws-app/my-app
 
+    - name: Install Playwright browsers
+      run: npx playwright install
+      working-directory: ./my-aws-app/my-app
+    
     - name: Run tests
       run: |
         if [ -n "$(find ./tests -name '*.spec.ts' -o -name '*.test.ts' -o -name '*.spec.js' -o -name '*.test.js')" ]; then
