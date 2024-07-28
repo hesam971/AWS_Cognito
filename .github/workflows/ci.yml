@@ -27,12 +27,15 @@ jobs:
       run: npm run build
       working-directory: ./my-aws-app/my-app
 
-    - name: Install Playwright browsers
-      run: npx playwright install
+    - name: Install serve package
+      run: npm install -g serve
+
+    - name: Serve the app
+      run: serve -s build &
       working-directory: ./my-aws-app/my-app
 
-    - name: Start the app
-      run: npm start
+    - name: Install Playwright browsers
+      run: npx playwright install
       working-directory: ./my-aws-app/my-app
 
     - name: Run tests
