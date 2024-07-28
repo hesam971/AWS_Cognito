@@ -1,41 +1,21 @@
-name: CI/CD Pipeline
-
+name: Playwright Tests
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+  deployment_status:
 jobs:
-  build:
+  test:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
-
+    if: github.event.deployment_status.state == 'success'
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: '14'
-
+        node-version: 18
     - name: Install dependencies
-      run: npm install
-      working-directory: ./my-aws-app/my-app
-
-    - name: Build the app
-      run: npm run build
-      working-directory: ./my-aws-app/my-app
-      
+      run: npm ci
     - name: Install Playwright
       run: npx playwright install --with-deps
-
-    - name: run test
+    - name: Run Playwright tests
       run: npx playwright test
-      working-directory: ./my-aws-app/my-app
-
-    - name: Upload production-ready build files
-      uses: actions/upload-artifact@v2
-      with:
-        name: production-files
-        path: ./my-aws-app/my-app/build
+      env:
+        PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
