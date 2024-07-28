@@ -1,0 +1,28 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd my-aws-app/my-app # Adjust this path if necessary
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: my-aws-app/my-app/build # Adjust this path if necessary
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - my-aws-app/my-app/node_modules/**/* # Adjust this path if necessary
+
+# Custom Redirects and Headers
+customHeaders:
+  - pattern: '**/*'
+    headers:
+      - key: 'Cache-Control'
+        value: 'max-age=0,no-cache,no-store,must-revalidate'
+redirects:
+  - source: '<*>'
+    target: /index.html
+    status: 200
