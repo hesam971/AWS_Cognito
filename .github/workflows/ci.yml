@@ -24,7 +24,7 @@ jobs:
       working-directory: ./my-aws-app/my-app
 
     - name: Build the app
-      run: npm start
+      run: npm run build
       working-directory: ./my-aws-app/my-app
 
     - name: Install Playwright browsers
