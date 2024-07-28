@@ -3,17 +3,18 @@ frontend:
   phases:
     preBuild:
       commands:
+        - cd my-aws-app/my-app # Adjust this path if necessary
         - npm install
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: build
+    baseDirectory: my-aws-app/my-app/build # Adjust this path if necessary
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - my-aws-app/my-app/node_modules/**/* # Adjust this path if necessary
 
 # Custom Redirects and Headers
 customHeaders:
