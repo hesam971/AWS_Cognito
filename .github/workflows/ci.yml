@@ -28,7 +28,12 @@ jobs:
       working-directory: ./my-aws-app/my-app
 
     - name: Run tests
-      run: npm test -- --passWithNoTests
+      run: |
+        if [ -n "$(find ./tests -name '*.spec.ts' -o -name '*.test.ts' -o -name '*.spec.js' -o -name '*.test.js')" ]; then
+          npx playwright test
+        else
+          echo "No test files found, skipping tests."
+        fi
       working-directory: ./my-aws-app/my-app
 
     - name: Upload production-ready build files
