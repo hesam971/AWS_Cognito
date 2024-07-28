@@ -26,6 +26,9 @@ jobs:
     - name: Build the app
       run: npm run build
       working-directory: ./my-aws-app/my-app
+      
+    - name: Install Playwright
+      run: npx playwright install --with-deps
 
     - name: run test
       run: npx playwright test
