@@ -3,14 +3,15 @@ frontend:
   phases:
     preBuild:
       commands:
+        - cd my-aws-app/my-app
         - npm install
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: /build
+    baseDirectory: /my-aws-app/my-app/build
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - my-aws-app/my-app/node_modules/**/*
