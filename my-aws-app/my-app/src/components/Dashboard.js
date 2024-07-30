@@ -50,7 +50,7 @@ const Dashboard = () => {
   return (
     <PayPalScriptProvider
       options={{
-        'client-id': 'AR0YwuqNm9SNYYodJFmKnnkN56U3jH02UnOjRDxXOwwCXSCTt4Ym7ebllT_IfSgCkL4h2u7MTvkKwIKj',
+        'client-id': '',
         'currency': 'USD',
       }}
     >
